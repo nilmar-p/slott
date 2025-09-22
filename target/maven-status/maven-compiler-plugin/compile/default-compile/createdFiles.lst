@@ -1,0 +1,15 @@
+model\Model.class
+com\mycompany\slott\Slott.class
+dao\VehicleDao.class
+view\VehiclesDialog$1$1.class
+model\Vehicle.class
+view\MenuScreen$2.class
+db\Database.class
+view\MenuScreen.class
+view\MenuScreen$1.class
+dao\ModelDao.class
+enums\Color.class
+model\Make.class
+view\VehiclesDialog$1.class
+dao\MakeDao.class
+view\VehiclesDialog.class
