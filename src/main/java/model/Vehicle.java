@@ -9,7 +9,6 @@ public class Vehicle implements java.io.Serializable {
     private Model model;
     private Color color;
     private int year;
-    private String description;
 
     //constructor
 
@@ -19,17 +18,15 @@ public class Vehicle implements java.io.Serializable {
         this.setModel(null);
         this.setColor(Color.NONE);
         this.setYear(1900);
-        this.setDescription("SEM DESCRICAO");
     }
     
     
-    public Vehicle(int id, Make make, Model model, Color color, int year, String description) {
+    public Vehicle(int id, Make make, Model model, Color color, int year) {
         this.setId(id);
         this.setMake(make);
         this.setModel(model);
         this.setColor(color);
         this.setYear(year);
-        this.setDescription(description);
     }
 
     //getters
@@ -53,10 +50,6 @@ public class Vehicle implements java.io.Serializable {
         return year;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     //setters
     public void setId(int id) {
         this.id = id <= 0 ? 0 : id;
@@ -76,10 +69,6 @@ public class Vehicle implements java.io.Serializable {
 
     public void setYear(int year) {
         this.year = year < 1900 ? 1900 : year;
-    }
-
-    public void setDescription(String description) {
-        this.description = description.trim().isEmpty() ? "SEM DESCRIÇÃO" : description.toUpperCase();
     }
 
     //

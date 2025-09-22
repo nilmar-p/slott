@@ -22,7 +22,6 @@ public class VehicleDao {
         pst.setObject(2, vehicle.getModel().getId());
         pst.setObject(3, vehicle.getColor());
         pst.setObject(4, vehicle.getYear());
-        pst.setObject(5, vehicle.getDescription());
 
         return pst.executeUpdate();
     }
@@ -35,7 +34,6 @@ public class VehicleDao {
         pst.setObject(2, vehicle.getModel().getId());
         pst.setObject(3, vehicle.getColor());
         pst.setObject(4, vehicle.getYear());
-        pst.setObject(5, vehicle.getDescription());
         pst.setObject(6, vehicle.getId());
 
         return pst.executeUpdate();
@@ -91,7 +89,6 @@ public class VehicleDao {
         vehicle.setModel(model);
         vehicle.setColor(Color.valueOf(rs.getString("color")));
         vehicle.setYear(rs.getInt("year"));
-        vehicle.setDescription(rs.getString("description"));
         
         return vehicle;
     }
