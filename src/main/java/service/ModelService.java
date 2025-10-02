@@ -7,16 +7,21 @@ import model.Make;
 import model.Model;
 
 public class ModelService {
-
+    
     private final ModelDao dao = new ModelDao();
     
-    public List<Model> listModels() throws SQLException{
+    public List<Model> listModels() throws SQLException {
         //rules
         return dao.readAll();
     }
     
-    public List<Model> listModelsByMake(Make make) throws SQLException{
+    public List<Model> listModelsByMake(Make make) throws SQLException {
         //rules
         return dao.readByMake(make);
+    }
+    
+    public int createModel(Model model) throws SQLException {
+        //rules
+        return dao.create(model);
     }
 }

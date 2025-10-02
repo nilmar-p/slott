@@ -44,7 +44,7 @@ public class ModelDao {
 
     //le todos os modelos
     public List<Model> readAll() throws SQLException {
-        String SQL = "select * from model order by id_make";
+        String SQL = "select * from model order by id_make, name";
         PreparedStatement pst = Database.getConnection().prepareStatement(SQL);
 
         ResultSet rs = pst.executeQuery();

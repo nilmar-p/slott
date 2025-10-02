@@ -7,6 +7,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.Make;
 import model.Model;
@@ -14,24 +15,6 @@ import model.Model;
 public class Helper {
 
     //VehiclesDialog
-    public static void fillCombos(JComboBox comboMake, JComboBox comboMakeRegister) {
-        try {
-            DefaultComboBoxModel cmMake = new DefaultComboBoxModel(MakeController.getAllMakes().toArray());
-            comboMake.setModel(cmMake);
-
-            comboMakeRegister.setModel(cmMake);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "ERRO: não foi possível carregar as informações no formulário! \n"
-                    + ex.getMessage(),
-                    "Algo deu errado",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        }
-
-    }
-
     public static void fillComboModelByMake(JComboBox comboMake, JComboBox comboModel) {
         Make mk = (Make) comboMake.getSelectedItem();
 
@@ -49,8 +32,9 @@ public class Helper {
         }
     }
 
-    public static void fillTableVehicles(JTable tableModels) {
+    public static void refreshVehiclesDialog(JComboBox comboMake, JComboBox comboMakeRegister, JTable tableModels, JTextField fieldRegisterName) {
         DefaultTableModel tableModel = (DefaultTableModel) tableModels.getModel();
+        tableModel.setRowCount(0); //clean tableModel
 
         try {
             for (Model md : ModelController.getAllModels()) {
@@ -66,6 +50,22 @@ public class Helper {
             );
         }
 
+        try {
+            DefaultComboBoxModel cmMake = new DefaultComboBoxModel(MakeController.getAllMakes().toArray());
+            comboMake.setModel(cmMake);
+
+            comboMakeRegister.setModel(cmMake);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "ERRO: não foi possível carregar as informações no formulário! \n"
+                    + ex.getMessage(),
+                    "Algo deu errado",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+        
+        fieldRegisterName.setText("");
     }
 
     //methods

@@ -1,5 +1,8 @@
 package view;
 
+import controller.ModelController;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import util.Helper;
 
 public class VehiclesDialog extends javax.swing.JDialog {
@@ -191,6 +194,11 @@ public class VehiclesDialog extends javax.swing.JDialog {
         buttonSave.setBorderPainted(false);
         buttonSave.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonSave.setFocusPainted(false);
+        buttonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSaveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -281,18 +289,37 @@ public class VehiclesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        Helper.fillCombos(comboMake, comboMakeRegister);
+        Helper.refreshVehiclesDialog(comboMake, comboMakeRegister, tableModels, fieldRegisterName);
         Helper.fillComboModelByMake(comboMake, comboModel);
-        Helper.fillTableVehicles(tableModels);
     }//GEN-LAST:event_formWindowOpened
 
     private void comboMakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMakeActionPerformed
         Helper.fillComboModelByMake(comboMake, comboModel);
     }//GEN-LAST:event_comboMakeActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
+        try {
+            if (ModelController.createModel(fieldRegisterName, comboMakeRegister) != 0) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "Modelo cadastrado com sucesso!",
+                        "Sucesso",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "ERRO: não foi possível criar novo modelo \n"
+                    + ex.getMessage(),
+                    "Algo deu errado",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+
+        Helper.refreshVehiclesDialog(comboMake, comboMakeRegister, tableModels, fieldRegisterName);
+    }//GEN-LAST:event_buttonSaveActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
