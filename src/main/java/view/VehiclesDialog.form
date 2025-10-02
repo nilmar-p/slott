@@ -130,14 +130,19 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jLabel3" pref="370" max="32767" attributes="0"/>
+                          <Component id="jLabel3" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="buttonSearch" min="-2" pref="150" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="comboMake" max="32767" attributes="0"/>
-                                  <Component id="jLabel1" alignment="0" pref="185" max="32767" attributes="0"/>
-                                  <Component id="jLabel2" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="labelModel" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkModel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="comboModel" alignment="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
@@ -158,8 +163,11 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="labelModel" max="32767" attributes="0"/>
+                                  <Component id="checkModel" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="comboModel" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                           <Component id="buttonSearch" max="32767" attributes="0"/>
@@ -188,6 +196,9 @@
                 </Property>
                 <Property name="focusPainted" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSearchActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboMake">
               <Properties>
@@ -265,7 +276,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="labelModel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI Semibold" size="18" style="0"/>
@@ -285,8 +296,13 @@
                   <Color blue="66" green="66" red="66" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="BUSCAR VE&#xcd;CULOS CADASTRADOS"/>
+                <Property name="text" type="java.lang.String" value="FILTRAR VE&#xcd;CULOS CADASTRADOS"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkModel">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkModelActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

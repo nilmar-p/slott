@@ -4,6 +4,7 @@ import controller.MakeController;
 import controller.ModelController;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -64,9 +65,44 @@ public class Helper {
                     JOptionPane.ERROR_MESSAGE
             );
         }
-        
+
         fieldRegisterName.setText("");
     }
 
-    //methods
+    public static void refreshModelsTableByFilter(JComboBox comboMake, JComboBox comboModel, JCheckBox checkModel, JTable tableModels) {
+        DefaultTableModel tableModel = (DefaultTableModel) tableModels.getModel();
+        tableModel.setRowCount(0);
+
+        if (!checkModel.isSelected()) {
+            try {
+                for (Model md : ModelController.getModelsByMake((Make) comboMake.getSelectedItem())) {
+                    tableModel.addRow(new Object[]{md.getName(), md.getMake().getName()});
+                }
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(
+                        null,
+                        "ERRO: não foi possível carregar os registros na tabela! \n"
+                        + ex.getMessage(),
+                        "Algo deu errado",
+                        JOptionPane.ERROR_MESSAGE
+                );
+            }
+
+            return;
+        }
+
+        try {
+            Model md = ModelController.getModel(((Model) comboModel.getSelectedItem()).getId());
+            tableModel.addRow(new Object[]{md.getName(), md.getMake().getName()});
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "ERRO: não foi possível carregar os registros na tabela! \n"
+                    + ex.getMessage(),
+                    "Algo deu errado",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+
+    }
 }

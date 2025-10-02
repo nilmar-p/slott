@@ -34,8 +34,9 @@ public class VehiclesDialog extends javax.swing.JDialog {
         comboMake = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         comboModel = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
+        labelModel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        checkModel = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         fieldRegisterName = new javax.swing.JTextField();
@@ -88,6 +89,11 @@ public class VehiclesDialog extends javax.swing.JDialog {
         buttonSearch.setBorderPainted(false);
         buttonSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         buttonSearch.setFocusPainted(false);
+        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSearchActionPerformed(evt);
+            }
+        });
 
         comboMake.setBackground(new java.awt.Color(0, 153, 204));
         comboMake.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -114,14 +120,20 @@ public class VehiclesDialog extends javax.swing.JDialog {
         comboModel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboModel.setFocusable(false);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel2.setText("MODELO");
+        labelModel.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        labelModel.setForeground(new java.awt.Color(102, 102, 102));
+        labelModel.setText("MODELO");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("BUSCAR VEÍCULOS CADASTRADOS");
+        jLabel3.setText("FILTRAR VEÍCULOS CADASTRADOS");
+
+        checkModel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkModelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -130,14 +142,18 @@ public class VehiclesDialog extends javax.swing.JDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(comboMake, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(labelModel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkModel)
+                                .addGap(84, 84, 84))
                             .addComponent(comboModel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(35, 35, 35))
         );
@@ -153,8 +169,10 @@ public class VehiclesDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelModel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(checkModel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(comboModel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(buttonSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -289,6 +307,8 @@ public class VehiclesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        labelModel.setEnabled(false);
+        comboModel.setEnabled(false);
         Helper.refreshVehiclesDialog(comboMake, comboMakeRegister, tableModels, fieldRegisterName);
         Helper.fillComboModelByMake(comboMake, comboModel);
     }//GEN-LAST:event_formWindowOpened
@@ -319,6 +339,21 @@ public class VehiclesDialog extends javax.swing.JDialog {
 
         Helper.refreshVehiclesDialog(comboMake, comboMakeRegister, tableModels, fieldRegisterName);
     }//GEN-LAST:event_buttonSaveActionPerformed
+
+    private void checkModelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkModelActionPerformed
+        if (checkModel.isSelected()) {
+            labelModel.setEnabled(true);
+            comboModel.setEnabled(true);
+
+        } else {
+            labelModel.setEnabled(false);
+            comboModel.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkModelActionPerformed
+
+    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
+        Helper.refreshModelsTableByFilter(comboMake, comboModel, checkModel, tableModels);
+    }//GEN-LAST:event_buttonSearchActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -357,12 +392,12 @@ public class VehiclesDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSave;
     private javax.swing.JButton buttonSearch;
+    private javax.swing.JCheckBox checkModel;
     private javax.swing.JComboBox<String> comboMake;
     private javax.swing.JComboBox<String> comboMakeRegister;
     private javax.swing.JComboBox<String> comboModel;
     private javax.swing.JTextField fieldRegisterName;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -371,6 +406,7 @@ public class VehiclesDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelModel;
     private javax.swing.JTable tableModels;
     // End of variables declaration//GEN-END:variables
 }

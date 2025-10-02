@@ -3,7 +3,6 @@ package controller;
 import java.sql.SQLException;
 import java.util.List;
 import model.Make;
-import model.Model;
 import service.MakeService;
 
 public class MakeController {

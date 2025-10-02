@@ -13,6 +13,7 @@ public class ModelController {
 
     private static final ModelService service = new ModelService();
 
+    //list
     public static List<Model> getAllModels() throws SQLException {
         return service.listModels();
     }
@@ -21,7 +22,11 @@ public class ModelController {
         return service.listModelsByMake(make);
     }
 
-    //crud
+    public static Model getModel(int id) throws SQLException {
+        return service.listModelById(id);
+    }
+
+    //create
     public static int createModel(JTextField fieldRegisterName, JComboBox comboMakeRegister) throws SQLException {
         Model model = new Model();
         Make make = (Make) comboMakeRegister.getSelectedItem();
@@ -43,10 +48,11 @@ public class ModelController {
             );
             return 0;
         }
-                
+
         model.setName(fieldRegisterName.getText().trim().toUpperCase());
         model.setMake(make);
 
         return service.createModel(model);
     }
+
 }
