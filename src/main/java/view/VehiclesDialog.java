@@ -1,8 +1,15 @@
 package view;
 
 import controller.ModelController;
+import enums.Screen;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.SwingUtilities;
 import util.Helper;
 
 public class VehiclesDialog extends javax.swing.JDialog {
@@ -73,7 +80,15 @@ public class VehiclesDialog extends javax.swing.JDialog {
             }
         });
         tableModels.setRowHeight(30);
+        tableModels.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tableModels.setShowHorizontalLines(true);
+        tableModels.setShowVerticalLines(true);
         tableModels.getTableHeader().setReorderingAllowed(false);
+        tableModels.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tableModelsMousePressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableModels);
         if (tableModels.getColumnModel().getColumnCount() > 0) {
             tableModels.getColumnModel().getColumn(0).setResizable(false);
@@ -98,7 +113,6 @@ public class VehiclesDialog extends javax.swing.JDialog {
         comboMake.setBackground(new java.awt.Color(0, 153, 204));
         comboMake.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboMake.setForeground(new java.awt.Color(255, 255, 255));
-        comboMake.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboMake.setBorder(null);
         comboMake.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboMake.setFocusable(false);
@@ -115,7 +129,6 @@ public class VehiclesDialog extends javax.swing.JDialog {
         comboModel.setBackground(new java.awt.Color(0, 153, 204));
         comboModel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboModel.setForeground(new java.awt.Color(255, 255, 255));
-        comboModel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboModel.setBorder(null);
         comboModel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboModel.setFocusable(false);
@@ -200,7 +213,6 @@ public class VehiclesDialog extends javax.swing.JDialog {
         comboMakeRegister.setBackground(new java.awt.Color(0, 153, 204));
         comboMakeRegister.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         comboMakeRegister.setForeground(new java.awt.Color(255, 255, 255));
-        comboMakeRegister.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboMakeRegister.setBorder(null);
         comboMakeRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         comboMakeRegister.setFocusable(false);
@@ -307,14 +319,12 @@ public class VehiclesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        labelModel.setEnabled(false);
-        comboModel.setEnabled(false);
         Helper.refreshVehiclesDialog(comboMake, comboMakeRegister, tableModels, fieldRegisterName);
-        Helper.fillComboModelByMake(comboMake, comboModel);
+        Helper.fillComboModelByMake(comboMake, comboModel, checkModel);
     }//GEN-LAST:event_formWindowOpened
 
     private void comboMakeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMakeActionPerformed
-        Helper.fillComboModelByMake(comboMake, comboModel);
+        Helper.fillComboModelByMake(comboMake, comboModel, checkModel);
     }//GEN-LAST:event_comboMakeActionPerformed
 
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
@@ -354,6 +364,44 @@ public class VehiclesDialog extends javax.swing.JDialog {
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         Helper.refreshModelsTableByFilter(comboMake, comboModel, checkModel, tableModels);
     }//GEN-LAST:event_buttonSearchActionPerformed
+
+    private void tableModelsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableModelsMousePressed
+        if (!SwingUtilities.isRightMouseButton(evt)) {
+            return;
+        }
+
+        int row = tableModels.rowAtPoint(evt.getPoint());
+
+        if (row < 0) {
+            return;
+        }
+
+        tableModels.setRowSelectionInterval(row, row);
+        tableModels.setFocusable(true);
+        tableModels.requestFocusInWindow();
+
+        JPopupMenu popupMenu = new JPopupMenu();
+
+        JMenuItem viewModel = new JMenuItem("Visualizar Modelo");
+
+        viewModel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("visualizar modelo clicked");
+            }
+
+        });
+
+        JMenuItem editModel = new JMenuItem("Editar Modelo");
+        editModel.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Editar modelo clicked");
+            }
+        });
+
+        popupMenu.add(viewModel);
+        popupMenu.add(editModel);
+        popupMenu.show(tableModels, evt.getX(), evt.getY());
+    }//GEN-LAST:event_tableModelsMousePressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -16,7 +16,7 @@ public enum Color {
     PURPLE("ROXO"),
     NONE("NENHUM");
 
-    private final String description;
+    public final String description;
 
     private Color(String description) {
         this.description = description;
@@ -25,4 +25,10 @@ public enum Color {
     public String getDescription() {
         return description;
     }
+
+    @Override
+    public String toString() {
+        return description;
+    }
+
 }
